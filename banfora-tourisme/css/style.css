@@ -1,0 +1,610 @@
+/* Variables Globales */
+:root {
+    --primary-color: #3a5a40; /* Vert forêt profond */
+    --secondary-color: #588157; /* Vert moyen */
+    --accent-color: #a3b18a; /* Vert sauge clair */
+    --light-color: #dad7cd; /* Blanc cassé / Crème clair */
+    --dark-color: #344e41; /* Vert très foncé pour le texte */
+    --font-family: 'Arial', sans-serif; /* Police principale */
+    --header-font: 'Georgia', serif; /* Police pour les titres */
+}
+
+/* Reset et Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: var(--light-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Classe pour le fond commun si image */
+body.common-background {
+    background-image: url('../img/bg.jpg'); /* Assurez-vous que img/bg.jpg existe */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Styles pour la page de réservation */
+.hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.hotel-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+}
+
+.hotel-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.hotel-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.hotel-card:hover .hotel-image img {
+    transform: scale(1.1);
+}
+
+.hotel-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 1rem;
+    color: white;
+    text-align: center;
+}
+
+.hotel-rating {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.hotel-rating i {
+    color: gold;
+}
+
+.hotel-content {
+    padding: 1.5rem;
+}
+
+.hotel-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.hotel-content p {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.hotel-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.hotel-features li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.hotel-features i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+}
+
+.btn-reserve {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-reserve:hover {
+    background: var(--secondary-color);
+}
+
+/* Styles pour le formulaire de réservation */
+.reservation-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.reservation-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.reservation-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.reservation-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-submit {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: var(--secondary-color);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px; /* Padding horizontal pour le contenu */
+}
+
+/* En-tête */
+header {
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img {
+    height: 50px; 
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+header .logo-title {
+    display: flex;
+    align-items: center;
+}
+
+header .logo-title h1 {
+    font-family: var(--header-font);
+    margin-left: 15px;
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: var(--light-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+}
+
+/* Menu Hamburger */
+.hamburger {
+    display: none; 
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--light-color);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Styles pour le menu mobile */
+@media (max-width: 768px) {
+    header .container {
+        padding: 0 15px; /* Moins de padding sur mobile */
+    }
+    header .logo-title h1 {
+        font-size: 1.5rem; /* Titre plus petit sur mobile */
+    }
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--primary-color);
+        position: absolute;
+        top: 70px; /* Ajustez selon la hauteur de votre header */
+        left: 0;
+        padding: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 0;
+        text-align: center;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid var(--secondary-color);
+    }
+
+    nav ul li:last-child a {
+        border-bottom: none;
+    }
+
+    .hamburger {
+        display: block; 
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+/* Contenu Principal */
+main {
+    flex-grow: 1;
+    padding: 20px 0;
+}
+
+/* Conteneur pour le contenu principal pour le fond semi-transparent */
+main.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.9); /* Blanc semi-transparent pour la lisibilité */
+    border-radius: 8px;
+    margin: 20px auto; /* Centrer et espacer */
+    padding: 20px; /* Padding interne */
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Pied de page */
+footer {
+    background: var(--dark-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: auto; 
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+/* Classes utilitaires */
+.text-center { text-align: center; }
+.my-1 { margin-top: 1rem; margin-bottom: 1rem; }
+.my-2 { margin-top: 2rem; margin-bottom: 2rem; }
+.py-1 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-2 { padding-top: 2rem; padding-bottom: 2rem; }
+
+/* Page d'accueil: Hero Section */
+#hero {
+    padding: 3rem 0;
+    text-align: center;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+#hero h2 {
+    font-family: var(--header-font);
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+#hero p {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+/* Section Description (Accueil et autres) */
+.description-section {
+    background: var(--light-color);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    line-height: 1.8;
+}
+.description-section h3 {
+    font-family: var(--header-font);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Liens rapides (Accueil) */
+#quick-links h3 {
+    font-family: var(--header-font);
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Page Patrimoine: Grille des sites */
+.heritage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.heritage-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.heritage-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(58, 90, 64, 0.2);
+}
+
+.heritage-item img {
+    width: 100%;
+    height: 220px; 
+    object-fit: cover;
+    display: block;
+}
+
+.heritage-item h3 {
+    font-family: var(--header-font);
+    font-size: 1.3rem;
+    padding: 15px 10px;
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    margin: 0;
+}
+
+.heritage-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Page de site individuel */
+.site-content h2 {
+    font-family: var(--header-font);
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+.site-content img.site-banner {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.site-content section {
+    margin-bottom: 2rem;
+}
+.site-content h3 {
+    font-family: var(--header-font);
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+.site-content p, .site-content ul {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+.site-content ul {
+    list-style-position: inside;
+    padding-left: 10px;
+}
+.site-content ul li strong {
+    color: var(--dark-color);
+}
+
+/* Formulaire de réservation */
+.reservation-form-container h2 {
+    font-family: var(--header-font);
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+.reservation-form {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: var(--font-family);
+    transition: border-color 0.3s ease;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn-submit {
+    display: inline-block;
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Galerie */
+.gallery-section h2 {
+    font-family: var(--header-font);
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(58, 90, 64, 0.2);
+}
+.gallery-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+/* Si vous utilisez Lightbox, vous pourriez avoir besoin de styles supplémentaires */
+
+/* Section Galerie d'images sur les pages de site individuel */
+.site-images h3 {
+    font-family: var(--header-font);
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    font-size: 1.6rem; /* Taille de police cohérente avec les autres h3 de section */
+}
+
+.image-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 1.5rem;
+}
+
+.gallery-image-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px; /* Cohérent avec .heritage-item */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombre discrète */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Indique que l'image est cliquable (pour Lightbox) */
+}
+
+.gallery-image-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Ombre légèrement plus prononcée au survol */
+}

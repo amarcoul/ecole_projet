@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Réservation - Tourisme Banfora</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="common-background">
+    <header>
+        <div class="container">
+            <div class="logo-title">
+                <a href="index.html" class="logo">
+                    <img src="../img/galerie/logo.jpg" alt="Logo Banfora Tourisme"></a>
+                <h1>Banfora Tourisme</h1>
+            </div>
+            <nav>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="patrimoine.html">Patrimoine</a></li>
+                    <li><a href="reservation.html">Hôtels</a></li>
+                    <li><a href="galerie.html">Galerie</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="container">
+            <section class="reservation-form-section my-4">
+                <h2 class="text-center mb-3">Formulaire de Réservation</h2>
+                
+                <div class="hotel-info mb-4">
+                    <h3 class="text-center">Hôtel: <span id="selectedHotelName">Hôtel Palace de Banfora</span></h3>
+                    <p class="text-center" id="hotelDescription">Un hôtel moderne et luxueux situé au cœur de Banfora, offrant une vue panoramique sur la ville. Idéal pour les voyageurs d'affaires et les touristes.</p>
+                </div>
+
+                <form action="#" method="POST" class="reservation-form">
+                    <div class="form-group">
+                        <label for="nom">Nom Complet :</label>
+                        <input type="text" id="nom" name="nom" placeholder="Ex: Jean Dupont" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone :</label>
+                        <input type="tel" id="telephone" name="telephone" placeholder="Ex: +226 XX XX XX XX" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_arrivee">Date d'Arrivée :</label>
+                        <input type="date" id="date_arrivee" name="date_arrivee" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_depart">Date de Départ :</label>
+                        <input type="date" id="date_depart" name="date_depart" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_adultes">Nombre d'Adultes :</label>
+                        <input type="number" id="nombre_adultes" name="nombre_adultes" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_enfants">Nombre d'Enfants :</label>
+                        <input type="number" id="nombre_enfants" name="nombre_enfants" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="type_chambre">Type de Chambre :</label>
+                        <select id="type_chambre" name="type_chambre" required>
+                            <option value="" disabled selected>Choisissez un type</option>
+                            <option value="simple">Simple</option>
+                            <option value="double">Double</option>
+                            <option value="suite">Suite</option>
+                            <option value="familiale">Familiale</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="preferences">Préférences ou Demandes Spéciales :</label>
+                        <textarea id="preferences" name="preferences" rows="5" placeholder="Ex: Vue sur le lac, étage élevé, lit bébé..."></textarea>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn-submit">Confirmer la Réservation</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tourisme Banfora. Tous droits réservés.</p>
+            <p>Réalisé par Coulibaly Amar et Forgo Abdoul Kader</p>
+        </div>
+    </footer>
+
+    <script>
+        // Récupérer les informations de l'hôtel depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const hotel = urlParams.get('hotel');
+        
+        // Configuration des hôtels
+        const hotels = {
+            palace: {
+                name: "Hôtel Palace de Banfora",
+                description: "Un hôtel moderne et luxueux situé au cœur de Banfora, offrant une vue panoramique sur la ville. Idéal pour les voyageurs d'affaires et les touristes."
+            },
+            calypso: {
+                name: "Hôtel Calypso",
+                description: "Un hôtel de charme situé dans un cadre naturel, proposant des bungalows traditionnels et une ambiance chaleureuse."
+            },
+            canne: {
+                name: "Hôtel Canne à Sucre",
+                description: "Un hôtel unique situé près des plantations de canne à sucre, offrant une expérience authentique et des vues spectaculaires."
+            },
+            comoe: {
+                name: "Hôtel Comoé",
+                description: "Un hôtel moderne avec une vue imprenable sur la région, idéal pour les amateurs de nature et d'aventure."
+            },
+            roniers: {
+                name: "Hôtel Les Roniers",
+                description: "Un lodge confortable situé dans un cadre naturel, offrant une expérience authentique de la vie locale avec des chambres spacieuses et une ambiance familiale."
+            },
+            fara: {
+                name: "Hôtel Fara",
+                description: "Un hôtel moderne de taille moyenne avec un excellent rapport qualité-prix, idéal pour les voyageurs à la recherche d'un hébergement confortable et bien situé."
+            },
+            plaza: {
+                name: "Hôtel Plaza",
+                description: "Un lodge élégant offrant un service de qualité et une ambiance chaleureuse, parfait pour les voyageurs cherchant un hébergement confortable et bien situé."
+            }
+        };
+
+        // Mettre à jour les informations de l'hôtel
+        if (hotel && hotels[hotel]) {
+            document.getElementById('selectedHotelName').textContent = hotels[hotel].name;
+            document.getElementById('hotelDescription').textContent = hotels[hotel].description;
+        }
+    </script>
+</body>
+</html>
